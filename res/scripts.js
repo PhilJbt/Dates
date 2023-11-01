@@ -2,7 +2,7 @@ const arrTimezones = Intl.supportedValuesOf('timeZone');
 
 document.addEventListener('readystatechange', e => {
     if (e.target.readyState === "complete") {
-        document.getElementById('input-date').valueAsDate = (new Date());
+        document.getElementById('input-date').value = moment().format('YYYY-MM-DD HH:mm');
         document.getElementById('input-minute').value = '';
         document.getElementById('input-hour').value = '';
         document.getElementById('input-day').value = '';
