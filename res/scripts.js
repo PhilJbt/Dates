@@ -60,8 +60,10 @@ const arrMongths = [
 var arrTimezones = [];
 document.addEventListener('readystatechange', e => {
     if (e.target.readyState === "complete") {
-        const currentDate = new Date().toISOString();
-        document.getElementById('input-date').value = currentDate.substr(0, currentDate.lastIndexOf(':'));
+        let dtCurr = new Date();
+        dtCurr.setMinutes(dtCurr.getMinutes() + (new Date().getTimezoneOffset() * -1));
+        const strCurr = dtCurr.toISOString();
+        document.getElementById('input-date').value = strCurr.substr(0, strCurr.lastIndexOf(':'));
         document.getElementById('input-minute').value = '';
         document.getElementById('input-hour').value = '';
         document.getElementById('input-day').value = '';
@@ -179,9 +181,9 @@ function process(_startup = false) {
     }
     else {
         const lang = Intl.DateTimeFormat().resolvedOptions().locale || navigator.language || navigator.userLanguage;
-        const tzOffset = (new Date().getTimezoneOffset()) * -1;
-        const timezoneStart = tzValBeg ?? 0;
-        const timezoneEnd = tzValEnd ?? 0;
+        const tzOffset = new Date().getTimezoneOffset() * -1;
+        const timezoneStart = tzValBeg ?? tzOffset;
+        const timezoneEnd = tzValEnd ?? tzOffset;
         let dateProc = new Date(document.getElementById('input-date').value);
 
         const userOffset =
