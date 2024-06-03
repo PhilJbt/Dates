@@ -12,7 +12,7 @@
         <script src="res/scripts.js"></script>
     </head>
     <body data-bs-theme="dark">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <header class="d-flex flex-wrap justify-content-center py-1 mb-1 border-bottom">
             <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
               <span class="fs-5 ms-5"><i class="bi bi-calendar2-week"></i> Dates</span>
             </p>
@@ -22,25 +22,47 @@
                 <div class="d-flex flex-column">
                     <div class="p-2">
                         <div class="container px-5 py-5">
-                            <h2 class="pb-2 border-bottom"><i class="bi bi-calendar"></i> Date de départ</h2>
-                            <div class="row row-cols-lg-2 gap-lg-0 row-cols-sm-1 gap-sm-2 justify-content-center">
-                                <div class="d-flex justify-content-center">
+                            <h2 class="pb-2 border-bottom"><i class="bi bi-calendar"></i> Depuis</h2>
+                            <div class="row gap-lg-0 gap-sm-2 justify-content-center">
+                                <div class="d-flex justify-content-center col-12 col-md-12 col-lg-3">
                                     <input type="datetime-local" id="input-date" style="width:100%;" />
                                 </div>
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center col-12 col-md-12 col-lg-6">
                                     <div class="input-group input-group-lg">
                                         <input type="text" class="form-control" id="input-timezone-s" list="list-timezone1" />
                                         <datalist id="list-timezone1" class="list-timezone">
                                         </datalist>
-                                        <label class="input-group-text" for="input-timezone-s">Fuseau horaire</label>
+                                        <label class="input-group-text" for="input-timezone-s">Fuseau</label>
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-center col-12 col-md-12 col-lg-3">
+									<div class="input-group input-group-lg">
+										<select class="form-select" id="input-shift-s">
+											<option value="-7">-7</option>
+												<option value="-6">-6</option>
+												<option value="-5">-5</option>
+												<option value="-4">-4</option>
+												<option value="-3">-3</option>
+												<option value="-2">-2</option>
+												<option value="-1">-1</option>
+												<option value="+0" selected>+0</option>
+												<option value="+1">+1</option>
+												<option value="+2">+2</option>
+												<option value="+3">+3</option>
+												<option value="+4">+4</option>
+												<option value="+5">+5</option>
+												<option value="+6">+6</option>
+												<option value="+7">+7</option>
+										</select>
+										<label class="input-group-text" for="input-shift-s">Décalage</label>
+									</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="p-2">
                         <div class="container px-5 py-3">
-                            <h2 class="pb-2 border-bottom"><i class="bi bi-sliders"></i> Date d'arrivée</h2>
+                            <h2 class="pb-2 border-bottom"><i class="bi bi-sliders"></i> Vers</h2>
                             <div class="row gx-2 gy-2">
                                 <div class="col-5 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
                                     <div class="input-group input-group-lg">
@@ -78,13 +100,35 @@
                                         <label class="input-group-text" for="input-year">Années</label>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-12">
+                                <div class="col-6">
                                     <div class="input-group input-group-lg">
                                         <input type="text" class="form-control" id="input-timezone-e" list="list-timezone2" />
                                         <datalist id="list-timezone2" class="list-timezone">
                                         </datalist>
-                                        <label class="input-group-text" for="input-timezone-e">Fuseau horaire</label>
+                                        <label class="input-group-text" for="input-timezone-e">Fuseau</label>
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-center col-6">
+									<div class="input-group input-group-lg">
+										<select class="form-select" id="input-shift-e">
+											<option value="-7">-7</option>
+												<option value="-6">-6</option>
+												<option value="-5">-5</option>
+												<option value="-4">-4</option>
+												<option value="-3">-3</option>
+												<option value="-2">-2</option>
+												<option value="-1">-1</option>
+												<option value="+0" selected>+0</option>
+												<option value="+1">+1</option>
+												<option value="+2">+2</option>
+												<option value="+3">+3</option>
+												<option value="+4">+4</option>
+												<option value="+5">+5</option>
+												<option value="+6">+6</option>
+												<option value="+7">+7</option>
+										</select>
+										<label class="input-group-text" for="input-shift-e">Décalage</label>
+									</div>
                                 </div>
                             </div>
                         </div>

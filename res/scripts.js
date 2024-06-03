@@ -1,54 +1,54 @@
 const arrTimezones_raw = [
-    {"ACDT # (Australian Central Daylight Saving Time)": +630},
-    {"ACST # (Australian Central Standard Time)": +570},
-    {"ACWST # (Australian Central Western Standard Time (unofficial))": +525},
-    {"ADT # (Atlantic Daylight Time)": -180},
-    {"AEDT # (Australian Eastern Daylight Saving Time)": +660},
-    {"AEST # (Australian Eastern Standard Time)": +600},
-    {"AKDT # (Alaska Daylight Time)": -480},
-    {"AKST # (Alaska Standard Time)": -540},
-    {"AMST # (Amazon Summer Time (Brazil))": -180},
-    {"AMT # (Amazon Time (Brazil))": -240},
-    {"AST # (Arabia Standard Time)": +180},
-    {"AST # (Atlantic Standard Time)": -240},
-    {"AWST # (Australian Western Standard Time)": +480},
-    {"BIOT # (British Indian Ocean Time)": +360},
-    {"BIT # (Brasília Summer Time)": -720},
-    {"BOT # (Brasília Time)": -240},
-    {"CAT # (Central Africa Time)": +120},
-    {"CDT # (Central Daylight Time (North America))": -300},
-    {"CEST # (Central European Summer Time)": +120},
-    {"CET # (Central European Time)": +60},
-    {"CST # (Central Standard Time (Central America))": -360},
-    {"EAT # (East Africa Time)": +180},
-    {"EDT # (Eastern Daylight Time (North America))": -240},
-    {"EEST # (Eastern European Summer Time)": +180},
-    {"EET # (Eastern European Time)": +120},
-    {"EGST # (Eastern Greenland Summer Time)": +0},
-    {"EGT # (Eastern Greenland Time)": -60},
-    {"EST # (Eastern Standard Time (North America))": -300},
-    {"FET # (Further-eastern European Time)": +180},
-    {"GMT # (Greenwich Mean Time)": +0},
-    {"KST # (Korea Standard Time)": +540},
-    {"MET # (Middle European Time)": +60},
-    {"MEST # (Middle European Summer Time)": +120},
-    {"PDT # (Pacific Daylight Time (North America))": -420},
-    {"PST # (Pacific Standard Time (North America))": -480},
-    {"SAST # (South African Standard Time)": +120},
-    {"SGT # (Singapore Time)": +480},
-    {"SST # (Singapore Standard Time)": -660},
-    {"TST # (Taiwan Standard Time)": +480},
-    {"UTC # (Coordinated Universal Time)": +0},
-    {"WAST # (West Africa Summer Time)": +120},
-    {"WAT # (West Africa Time)": +60},
-    {"WEST # (Western European Summer Time)": +60},
-    {"WET # (Western European Time)": +0},
-    {"WIB # (Western Indonesian Time)": +420},
-    {"WIT # (Eastern Indonesian Time)": +540},
-    {"WITA # (Central Indonesia Time)": +480},
-    {"WGST # (West Greenland Summer Time)": -120},
-    {"WGT # (West Greenland Time)": -180},
-    {"WST # (Western Standard Time)": +480},
+    {"ACDT - Australian Central Daylight Saving Time": +630},
+    {"ACST - Australian Central Standard Time": +570},
+    {"ACWST - Australian Central Western Standard Time (unofficial)": +525},
+    {"ADT - Atlantic Daylight Time": -180},
+    {"AEDT - Australian Eastern Daylight Saving Time": +660},
+    {"AEST - Australian Eastern Standard Time": +600},
+    {"AKDT - Alaska Daylight Time": -480},
+    {"AKST - Alaska Standard Time": -540},
+    {"AMST - Amazon Summer Time (Brazil)": -180},
+    {"AMT - Amazon Time (Brazil)": -240},
+    {"AST - Arabia Standard Time": +180},
+    {"AST - Atlantic Standard Time": -240},
+    {"AWST - Australian Western Standard Time": +480},
+    {"BIOT - British Indian Ocean Time": +360},
+    {"BIT - Brasília Summer Time": -720},
+    {"BOT - Brasília Time": -240},
+    {"CAT - Central Africa Time": +120},
+    {"CDT - Central Daylight Time (North America)": -300},
+    {"CEST - Central European Summer Time": +120},
+    {"CET - Central European Time": +60},
+    {"CST - Central Standard Time (Central America)": -360},
+    {"EAT - East Africa Time": +180},
+    {"EDT - Eastern Daylight Time (North America)": -240},
+    {"EEST - Eastern European Summer Time": +180},
+    {"EET - Eastern European Time": +120},
+    {"EGST - Eastern Greenland Summer Time": +0},
+    {"EGT - Eastern Greenland Time": -60},
+    {"EST - Eastern Standard Time (North America)": -300},
+    {"FET - Further-eastern European Time": +180},
+    {"GMT - Greenwich Mean Time": +0},
+    {"KST - Korea Standard Time": +540},
+    {"MET - Middle European Time": +60},
+    {"MEST - Middle European Summer Time": +120},
+    {"PDT - Pacific Daylight Time (North America)": -420},
+    {"PST - Pacific Standard Time (North America)": -480},
+    {"SAST - South African Standard Time": +120},
+    {"SGT - Singapore Time": +480},
+    {"SST - Singapore Standard Time": -660},
+    {"TST - Taiwan Standard Time": +480},
+    {"UTC - Coordinated Universal Time": +0},
+    {"WAST - West Africa Summer Time": +120},
+    {"WAT - West Africa Time": +60},
+    {"WEST - Western European Summer Time": +60},
+    {"WET - Western European Time": +0},
+    {"WIB - Western Indonesian Time": +420},
+    {"WIT - Eastern Indonesian Time": +540},
+    {"WITA - Central Indonesia Time": +480},
+    {"WGST - West Greenland Summer Time": -120},
+    {"WGT - West Greenland Time": -180},
+    {"WST - Western Standard Time": +480},
 ];
 
 const arrDays = [
@@ -74,31 +74,34 @@ document.addEventListener('readystatechange', e => {
         document.getElementById('input-timezone-s').placeholder = Intl.DateTimeFormat().resolvedOptions().timeZone;
         document.getElementById('input-timezone-e').value = '';
         document.getElementById('input-timezone-e').placeholder = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('input-shift-s').value = '+0';
+        document.getElementById('input-shift-e').value = '+0';
 
         for (let i = 0; i < arrTimezones_raw.length; ++i) {
             const name = Object.keys(arrTimezones_raw[i])[0];
             const time = Object.values(arrTimezones_raw[i])[0];
         
-            for (let i = -7; i < 0; ++i) {
-                const nameMinus = name.replace('#', i.toString());
-                const timeMinus = time + (i * 60);
-                var obj = {};
-                obj[nameMinus] = timeMinus;
-                arrTimezones.push(obj);
-            }
+            // for (let i = -7; i < 0; ++i) {
+                // const nameMinus = name.replace('#', i.toString());
+                // const timeMinus = time + (i * 60);
+                // var obj = {};
+                // obj[nameMinus] = timeMinus;
+                // arrTimezones.push(obj);
+            // }
             
-            const nameClean = name.replace('# ', '');
+            //const nameClean = name.replace('# ', '');
+            const nameClean = name;
             var obj = {};
             obj[nameClean] = time;
             arrTimezones.push(obj);
         
-            for (let i = 1; i < 8; ++i) {
-                const namePlus = name.replace('#', '+' + i.toString());
-                const timePlus = time + ((i+1) * 60);
-                var obj = {};
-                obj[namePlus] = timePlus;
-                arrTimezones.push(obj);
-            }
+            // for (let i = 1; i < 8; ++i) {
+                // const namePlus = name.replace('#', '+' + i.toString());
+                // const timePlus = time + (i * 60);
+                // var obj = {};
+                // obj[namePlus] = timePlus;
+                // arrTimezones.push(obj);
+            // }
         }
 
         let strTimezones = '';
@@ -113,11 +116,12 @@ document.addEventListener('readystatechange', e => {
             e.addEventListener('change', () => {
                 process();
             });
-            if (e.id !== 'input-timezone-s'
-            && e.id !== 'input-timezone-e')
-                e.addEventListener('input', () => {
-                    process();
-                });
+        });
+
+        document.querySelectorAll('select').forEach((e) => {
+            e.addEventListener('change', () => {
+                process();
+            });
         });
 
         process(true);
@@ -131,6 +135,7 @@ function process(_startup = false) {
         tzValEnd = undefined;
 
     if (!_startup) {
+		let bFound = false;
         for (let i = 0; i < arrTimezones.length; ++i) {
             const tzSelBeg = document.getElementById('input-timezone-s').value;
             const tzSelEnd = document.getElementById('input-timezone-e').value;
@@ -139,15 +144,22 @@ function process(_startup = false) {
             if (tzFndBeg === false
                 && tzSelBeg === tzSelected) {
                 tzFndBeg = true;
-                tzValBeg = Object.values(arrTimezones[i])[0];
+                tzValBeg = Object.values(arrTimezones[i])[0] + (parseInt(document.getElementById('input-shift-s').value || 0) * 60);
             }
 
             if (tzFndEnd === false
                 && tzSelEnd === tzSelected) {
                 tzFndEnd = true;
-                tzValEnd = Object.values(arrTimezones[i])[0];
+                tzValEnd = Object.values(arrTimezones[i])[0] + (parseInt(document.getElementById('input-shift-e').value || 0) * 60);
             }
         }
+		
+		if (!tzFndBeg && !tzFndEnd) {
+			tzFndBeg = true;
+			tzFndEnd = true;
+			tzValBeg = 0 + (parseInt(document.getElementById('input-shift-s').value || 0) * 60);
+			tzValEnd = 0 + (parseInt(document.getElementById('input-shift-e').value || 0) * 60);
+		}
     }
 
     const bNan = isNaN(document.getElementById('input-minute').value || 0) || isNaN(document.getElementById('input-hour').value || 0) || isNaN(document.getElementById('input-day').value || 0)
@@ -208,16 +220,15 @@ function process(_startup = false) {
             dateProc.getUTCMinutes().toString().padStart(2, '0')
         
         }</div>`;
-        if (document.getElementById('res-1').innerHTML !== strLine1) {
-            document.getElementById('res-1').innerHTML = strLine1;
-            document.getElementById('res-2').innerHTML =
-            `<div class="anim">${
-                dateProc.getUTCDate().toString().padStart(2, '0') + '/' +
-                (dateProc.getUTCMonth() + 1).toString().padStart(2, '0') + '/' +
-                dateProc.getUTCFullYear().toString() + ' ' +
-                dateProc.getUTCHours().toString().padStart(2, '0') + ':' +
-                dateProc.getUTCMinutes().toString().padStart(2, '0')
-            }</div>`
-        }
+		
+		document.getElementById('res-1').innerHTML = strLine1;
+		document.getElementById('res-2').innerHTML =
+		`<div class="anim">${
+			dateProc.getUTCDate().toString().padStart(2, '0') + '/' +
+			(dateProc.getUTCMonth() + 1).toString().padStart(2, '0') + '/' +
+			dateProc.getUTCFullYear().toString() + ' ' +
+			dateProc.getUTCHours().toString().padStart(2, '0') + ':' +
+			dateProc.getUTCMinutes().toString().padStart(2, '0')
+		}</div>`
     }
 }
