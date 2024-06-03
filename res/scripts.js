@@ -81,7 +81,7 @@ document.addEventListener('readystatechange', e => {
         
             for (let i = -7; i < 0; ++i) {
                 const nameMinus = name.replace('#', i.toString());
-                const timeMinus = time + ((i+1) * 60);
+                const timeMinus = time + (i * 60);
                 var obj = {};
                 obj[nameMinus] = timeMinus;
                 arrTimezones.push(obj);
@@ -94,7 +94,7 @@ document.addEventListener('readystatechange', e => {
         
             for (let i = 1; i < 8; ++i) {
                 const namePlus = name.replace('#', '+' + i.toString());
-                const timePlus = time + (i * 60);
+                const timePlus = time + ((i+1) * 60);
                 var obj = {};
                 obj[namePlus] = timePlus;
                 arrTimezones.push(obj);
