@@ -81,7 +81,7 @@ document.addEventListener('readystatechange', e => {
         
             for (let i = -7; i < 0; ++i) {
                 const nameMinus = name.replace('#', i.toString());
-                const timeMinus = time + (i * 60);
+                const timeMinus = time + ((i+1) * 60);
                 var obj = {};
                 obj[nameMinus] = timeMinus;
                 arrTimezones.push(obj);
