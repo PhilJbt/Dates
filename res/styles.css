@@ -29,3 +29,16 @@
 .anim {
     animation: anm_wobble 0.3s ease 0s 1 normal forwards;
 }
+
+#res-1, #res-2 {
+	user-select: all;
+}
+
+#toasts-list {
+	position: fixed;
+	padding: 30px;
+}
+
+.toast {
+	background-color: #531c1c !important;
+}

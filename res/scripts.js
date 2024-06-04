@@ -1,68 +1,579 @@
-const arrTimezones_raw = [
-    {"ACDT # (Australian Central Daylight Saving Time)": +630},
-    {"ACST # (Australian Central Standard Time)": +570},
-    {"ACWST # (Australian Central Western Standard Time (unofficial))": +525},
-    {"ADT # (Atlantic Daylight Time)": -180},
-    {"AEDT # (Australian Eastern Daylight Saving Time)": +660},
-    {"AEST # (Australian Eastern Standard Time)": +600},
-    {"AKDT # (Alaska Daylight Time)": -480},
-    {"AKST # (Alaska Standard Time)": -540},
-    {"AMST # (Amazon Summer Time (Brazil))": -180},
-    {"AMT # (Amazon Time (Brazil))": -240},
-    {"AST # (Arabia Standard Time)": +180},
-    {"AST # (Atlantic Standard Time)": -240},
-    {"AWST # (Australian Western Standard Time)": +480},
-    {"BIOT # (British Indian Ocean Time)": +360},
-    {"BIT # (Brasília Summer Time)": -720},
-    {"BOT # (Brasília Time)": -240},
-    {"CAT # (Central Africa Time)": +120},
-    {"CDT # (Central Daylight Time (North America))": -300},
-    {"CEST # (Central European Summer Time)": +120},
-    {"CET # (Central European Time)": +60},
-    {"CST # (Central Standard Time (Central America))": -360},
-    {"EAT # (East Africa Time)": +180},
-    {"EDT # (Eastern Daylight Time (North America))": -240},
-    {"EEST # (Eastern European Summer Time)": +180},
-    {"EET # (Eastern European Time)": +120},
-    {"EGST # (Eastern Greenland Summer Time)": +0},
-    {"EGT # (Eastern Greenland Time)": -60},
-    {"EST # (Eastern Standard Time (North America))": -300},
-    {"FET # (Further-eastern European Time)": +180},
-    {"GMT # (Greenwich Mean Time)": +0},
-    {"KST # (Korea Standard Time)": +540},
-    {"MET # (Middle European Time)": +60},
-    {"MEST # (Middle European Summer Time)": +120},
-    {"PDT # (Pacific Daylight Time (North America))": -420},
-    {"PST # (Pacific Standard Time (North America))": -480},
-    {"SAST # (South African Standard Time)": +120},
-    {"SGT # (Singapore Time)": +480},
-    {"SST # (Singapore Standard Time)": -660},
-    {"TST # (Taiwan Standard Time)": +480},
-    {"UTC # (Coordinated Universal Time)": +0},
-    {"WAST # (West Africa Summer Time)": +120},
-    {"WAT # (West Africa Time)": +60},
-    {"WEST # (Western European Summer Time)": +60},
-    {"WET # (Western European Time)": +0},
-    {"WIB # (Western Indonesian Time)": +420},
-    {"WIT # (Eastern Indonesian Time)": +540},
-    {"WITA # (Central Indonesia Time)": +480},
-    {"WGST # (West Greenland Summer Time)": -120},
-    {"WGT # (West Greenland Time)": -180},
-    {"WST # (Western Standard Time)": +480},
+/**
+ * arrTimezones stores all available timezones for the user,
+ * including some alias not included in momentJs
+ */
+const arrTimezones = [
+    "BST",
+    "CET",
+    "CST6CDT",
+    "EET",
+    "EST",
+    "EST5EDT",
+    "ET",
+    "GMT",
+    "HST",
+    "MET",
+    "MST",
+    "MST7MDT",
+    "NZ",
+    "NZ-CHAT",
+    "PRC",
+    "PST8PDT",
+    "PT",
+    "ROC",
+    "ROK",
+    "UCT",
+    "UTC",
+    "Universal",
+    "W-SU",
+    "WET",
+    "Zulu",
+    "Africa/Abidjan",
+    "Africa/Accra",
+    "Africa/Addis_Ababa",
+    "Africa/Algiers",
+    "Africa/Asmara",
+    "Africa/Asmera",
+    "Africa/Bamako",
+    "Africa/Bangui",
+    "Africa/Banjul",
+    "Africa/Bissau",
+    "Africa/Blantyre",
+    "Africa/Brazzaville",
+    "Africa/Bujumbura",
+    "Africa/Cairo",
+    "Africa/Casablanca",
+    "Africa/Ceuta",
+    "Africa/Conakry",
+    "Africa/Dakar",
+    "Africa/Dar_es_Salaam",
+    "Africa/Djibouti",
+    "Africa/Douala",
+    "Africa/El_Aaiun",
+    "Africa/Freetown",
+    "Africa/Gaborone",
+    "Africa/Harare",
+    "Africa/Johannesburg",
+    "Africa/Juba",
+    "Africa/Kampala",
+    "Africa/Khartoum",
+    "Africa/Kigali",
+    "Africa/Kinshasa",
+    "Africa/Lagos",
+    "Africa/Libreville",
+    "Africa/Lome",
+    "Africa/Luanda",
+    "Africa/Lubumbashi",
+    "Africa/Lusaka",
+    "Africa/Malabo",
+    "Africa/Maputo",
+    "Africa/Maseru",
+    "Africa/Mbabane",
+    "Africa/Mogadishu",
+    "Africa/Monrovia",
+    "Africa/Nairobi",
+    "Africa/Ndjamena",
+    "Africa/Niamey",
+    "Africa/Nouakchott",
+    "Africa/Ouagadougou",
+    "Africa/Porto-Novo",
+    "Africa/Sao_Tome",
+    "Africa/Timbuktu",
+    "Africa/Tripoli",
+    "Africa/Tunis",
+    "Africa/Windhoek",
+    "America/Adak",
+    "America/Anchorage",
+    "America/Anguilla",
+    "America/Antigua",
+    "America/Araguaina",
+    "America/Argentina/Buenos_Aires",
+    "America/Argentina/Catamarca",
+    "America/Argentina/ComodRivadavia",
+    "America/Argentina/Cordoba",
+    "America/Argentina/Jujuy",
+    "America/Argentina/La_Rioja",
+    "America/Argentina/Mendoza",
+    "America/Argentina/Rio_Gallegos",
+    "America/Argentina/Salta",
+    "America/Argentina/San_Juan",
+    "America/Argentina/San_Luis",
+    "America/Argentina/Tucuman",
+    "America/Argentina/Ushuaia",
+    "America/Aruba",
+    "America/Asuncion",
+    "America/Atikokan",
+    "America/Atka",
+    "America/Bahia",
+    "America/Bahia_Banderas",
+    "America/Barbados",
+    "America/Belem",
+    "America/Belize",
+    "America/Blanc-Sablon",
+    "America/Boa_Vista",
+    "America/Bogota",
+    "America/Boise",
+    "America/Buenos_Aires",
+    "America/Cambridge_Bay",
+    "America/Campo_Grande",
+    "America/Cancun",
+    "America/Caracas",
+    "America/Catamarca",
+    "America/Cayenne",
+    "America/Cayman",
+    "America/Chicago",
+    "America/Chihuahua",
+    "America/Ciudad_Juarez",
+    "America/Coral_Harbour",
+    "America/Cordoba",
+    "America/Costa_Rica",
+    "America/Creston",
+    "America/Cuiaba",
+    "America/Curacao",
+    "America/Danmarkshavn",
+    "America/Dawson",
+    "America/Dawson_Creek",
+    "America/Denver",
+    "America/Detroit",
+    "America/Dominica",
+    "America/Edmonton",
+    "America/Eirunepe",
+    "America/El_Salvador",
+    "America/Ensenada",
+    "America/Fort_Nelson",
+    "America/Fort_Wayne",
+    "America/Fortaleza",
+    "America/Glace_Bay",
+    "America/Godthab",
+    "America/Goose_Bay",
+    "America/Grand_Turk",
+    "America/Grenada",
+    "America/Guadeloupe",
+    "America/Guatemala",
+    "America/Guayaquil",
+    "America/Guyana",
+    "America/Halifax",
+    "America/Havana",
+    "America/Hermosillo",
+    "America/Indiana/Indianapolis",
+    "America/Indiana/Knox",
+    "America/Indiana/Marengo",
+    "America/Indiana/Petersburg",
+    "America/Indiana/Tell_City",
+    "America/Indiana/Vevay",
+    "America/Indiana/Vincennes",
+    "America/Indiana/Winamac",
+    "America/Indianapolis",
+    "America/Inuvik",
+    "America/Iqaluit",
+    "America/Jamaica",
+    "America/Jujuy",
+    "America/Juneau",
+    "America/Kentucky/Louisville",
+    "America/Kentucky/Monticello",
+    "America/Knox_IN",
+    "America/Kralendijk",
+    "America/La_Paz",
+    "America/Lima",
+    "America/Los_Angeles",
+    "America/Louisville",
+    "America/Lower_Princes",
+    "America/Maceio",
+    "America/Managua",
+    "America/Manaus",
+    "America/Marigot",
+    "America/Martinique",
+    "America/Matamoros",
+    "America/Mazatlan",
+    "America/Mendoza",
+    "America/Menominee",
+    "America/Merida",
+    "America/Metlakatla",
+    "America/Mexico_City",
+    "America/Miquelon",
+    "America/Moncton",
+    "America/Monterrey",
+    "America/Montevideo",
+    "America/Montreal",
+    "America/Montserrat",
+    "America/Nassau",
+    "America/New_York",
+    "America/Nipigon",
+    "America/Nome",
+    "America/Noronha",
+    "America/North_Dakota/Beulah",
+    "America/North_Dakota/Center",
+    "America/North_Dakota/New_Salem",
+    "America/Nuuk",
+    "America/Ojinaga",
+    "America/Panama",
+    "America/Pangnirtung",
+    "America/Paramaribo",
+    "America/Phoenix",
+    "America/Port-au-Prince",
+    "America/Port_of_Spain",
+    "America/Porto_Acre",
+    "America/Porto_Velho",
+    "America/Puerto_Rico",
+    "America/Punta_Arenas",
+    "America/Rainy_River",
+    "America/Rankin_Inlet",
+    "America/Recife",
+    "America/Regina",
+    "America/Resolute",
+    "America/Rio_Branco",
+    "America/Rosario",
+    "America/Santa_Isabel",
+    "America/Santarem",
+    "America/Santiago",
+    "America/Santo_Domingo",
+    "America/Sao_Paulo",
+    "America/Scoresbysund",
+    "America/Shiprock",
+    "America/Sitka",
+    "America/St_Barthelemy",
+    "America/St_Johns",
+    "America/St_Kitts",
+    "America/St_Lucia",
+    "America/St_Thomas",
+    "America/St_Vincent",
+    "America/Swift_Current",
+    "America/Tegucigalpa",
+    "America/Thule",
+    "America/Thunder_Bay",
+    "America/Tijuana",
+    "America/Toronto",
+    "America/Tortola",
+    "America/Vancouver",
+    "America/Virgin",
+    "America/Whitehorse",
+    "America/Winnipeg",
+    "America/Yakutat",
+    "America/Yellowknife",
+    "Antarctica/Casey",
+    "Antarctica/Davis",
+    "Antarctica/DumontDUrville",
+    "Antarctica/Macquarie",
+    "Antarctica/Mawson",
+    "Antarctica/McMurdo",
+    "Antarctica/Palmer",
+    "Antarctica/Rothera",
+    "Antarctica/South_Pole",
+    "Antarctica/Syowa",
+    "Antarctica/Troll",
+    "Antarctica/Vostok",
+    "Arctic/Longyearbyen",
+    "Asia/Aden",
+    "Asia/Almaty",
+    "Asia/Amman",
+    "Asia/Anadyr",
+    "Asia/Aqtau",
+    "Asia/Aqtobe",
+    "Asia/Ashgabat",
+    "Asia/Ashkhabad",
+    "Asia/Atyrau",
+    "Asia/Baghdad",
+    "Asia/Bahrain",
+    "Asia/Baku",
+    "Asia/Bangkok",
+    "Asia/Barnaul",
+    "Asia/Beirut",
+    "Asia/Bishkek",
+    "Asia/Brunei",
+    "Asia/Calcutta",
+    "Asia/Chita",
+    "Asia/Choibalsan",
+    "Asia/Chongqing",
+    "Asia/Chungking",
+    "Asia/Colombo",
+    "Asia/Dacca",
+    "Asia/Damascus",
+    "Asia/Dhaka",
+    "Asia/Dili",
+    "Asia/Dubai",
+    "Asia/Dushanbe",
+    "Asia/Famagusta",
+    "Asia/Gaza",
+    "Asia/Harbin",
+    "Asia/Hebron",
+    "Asia/Ho_Chi_Minh",
+    "Asia/Hong_Kong",
+    "Asia/Hovd",
+    "Asia/Irkutsk",
+    "Asia/Istanbul",
+    "Asia/Jakarta",
+    "Asia/Jayapura",
+    "Asia/Jerusalem",
+    "Asia/Kabul",
+    "Asia/Kamchatka",
+    "Asia/Karachi",
+    "Asia/Kashgar",
+    "Asia/Kathmandu",
+    "Asia/Katmandu",
+    "Asia/Khandyga",
+    "Asia/Kolkata",
+    "Asia/Krasnoyarsk",
+    "Asia/Kuala_Lumpur",
+    "Asia/Kuching",
+    "Asia/Kuwait",
+    "Asia/Macao",
+    "Asia/Macau",
+    "Asia/Magadan",
+    "Asia/Makassar",
+    "Asia/Manila",
+    "Asia/Muscat",
+    "Asia/Nicosia",
+    "Asia/Novokuznetsk",
+    "Asia/Novosibirsk",
+    "Asia/Omsk",
+    "Asia/Oral",
+    "Asia/Phnom_Penh",
+    "Asia/Pontianak",
+    "Asia/Pyongyang",
+    "Asia/Qatar",
+    "Asia/Qostanay",
+    "Asia/Qyzylorda",
+    "Asia/Rangoon",
+    "Asia/Riyadh",
+    "Asia/Saigon",
+    "Asia/Sakhalin",
+    "Asia/Samarkand",
+    "Asia/Seoul",
+    "Asia/Shanghai",
+    "Asia/Singapore",
+    "Asia/Srednekolymsk",
+    "Asia/Taipei",
+    "Asia/Tashkent",
+    "Asia/Tbilisi",
+    "Asia/Tehran",
+    "Asia/Tel_Aviv",
+    "Asia/Thimbu",
+    "Asia/Thimphu",
+    "Asia/Tokyo",
+    "Asia/Tomsk",
+    "Asia/Ujung_Pandang",
+    "Asia/Ulaanbaatar",
+    "Asia/Ulan_Bator",
+    "Asia/Urumqi",
+    "Asia/Ust-Nera",
+    "Asia/Vientiane",
+    "Asia/Vladivostok",
+    "Asia/Yakutsk",
+    "Asia/Yangon",
+    "Asia/Yekaterinburg",
+    "Asia/Yerevan",
+    "Atlantic/Azores",
+    "Atlantic/Bermuda",
+    "Atlantic/Canary",
+    "Atlantic/Cape_Verde",
+    "Atlantic/Faeroe",
+    "Atlantic/Faroe",
+    "Atlantic/Jan_Mayen",
+    "Atlantic/Madeira",
+    "Atlantic/Reykjavik",
+    "Atlantic/South_Georgia",
+    "Atlantic/St_Helena",
+    "Atlantic/Stanley",
+    "Australia/ACT",
+    "Australia/Adelaide",
+    "Australia/Brisbane",
+    "Australia/Broken_Hill",
+    "Australia/Canberra",
+    "Australia/Currie",
+    "Australia/Darwin",
+    "Australia/Eucla",
+    "Australia/Hobart",
+    "Australia/LHI",
+    "Australia/Lindeman",
+    "Australia/Lord_Howe",
+    "Australia/Melbourne",
+    "Australia/NSW",
+    "Australia/North",
+    "Australia/Perth",
+    "Australia/Queensland",
+    "Australia/South",
+    "Australia/Sydney",
+    "Australia/Tasmania",
+    "Australia/Victoria",
+    "Australia/West",
+    "Australia/Yancowinna",
+    "Brazil/Acre",
+    "Brazil/DeNoronha",
+    "Brazil/East",
+    "Brazil/West",
+    "Canada/Atlantic",
+    "Canada/Central",
+    "Canada/Eastern",
+    "Canada/Mountain",
+    "Canada/Newfoundland",
+    "Canada/Pacific",
+    "Canada/Saskatchewan",
+    "Canada/Yukon",
+    "Chile/Continental",
+    "Chile/EasterIsland",
+    "Cuba",
+    "Egypt",
+    "Eire",
+    "Europe/Amsterdam",
+    "Europe/Andorra",
+    "Europe/Astrakhan",
+    "Europe/Athens",
+    "Europe/Belfast",
+    "Europe/Belgrade",
+    "Europe/Berlin",
+    "Europe/Bratislava",
+    "Europe/Brussels",
+    "Europe/Bucharest",
+    "Europe/Budapest",
+    "Europe/Busingen",
+    "Europe/Chisinau",
+    "Europe/Copenhagen",
+    "Europe/Dublin",
+    "Europe/Gibraltar",
+    "Europe/Guernsey",
+    "Europe/Helsinki",
+    "Europe/Isle_of_Man",
+    "Europe/Istanbul",
+    "Europe/Jersey",
+    "Europe/Kaliningrad",
+    "Europe/Kiev",
+    "Europe/Kirov",
+    "Europe/Kyiv",
+    "Europe/Lisbon",
+    "Europe/Ljubljana",
+    "Europe/London",
+    "Europe/Luxembourg",
+    "Europe/Madrid",
+    "Europe/Malta",
+    "Europe/Mariehamn",
+    "Europe/Minsk",
+    "Europe/Monaco",
+    "Europe/Moscow",
+    "Europe/Nicosia",
+    "Europe/Oslo",
+    "Europe/Paris",
+    "Europe/Podgorica",
+    "Europe/Prague",
+    "Europe/Riga",
+    "Europe/Rome",
+    "Europe/Samara",
+    "Europe/San_Marino",
+    "Europe/Sarajevo",
+    "Europe/Saratov",
+    "Europe/Simferopol",
+    "Europe/Skopje",
+    "Europe/Sofia",
+    "Europe/Stockholm",
+    "Europe/Tallinn",
+    "Europe/Tirane",
+    "Europe/Tiraspol",
+    "Europe/Ulyanovsk",
+    "Europe/Uzhgorod",
+    "Europe/Vaduz",
+    "Europe/Vatican",
+    "Europe/Vienna",
+    "Europe/Vilnius",
+    "Europe/Volgograd",
+    "Europe/Warsaw",
+    "Europe/Zagreb",
+    "Europe/Zaporozhye",
+    "Europe/Zurich",
+    "GB",
+    "GB-Eire",
+    "Greenwich",
+    "Hongkong",
+    "Iceland",
+    "Indian/Antananarivo",
+    "Indian/Chagos",
+    "Indian/Christmas",
+    "Indian/Cocos",
+    "Indian/Comoro",
+    "Indian/Kerguelen",
+    "Indian/Mahe",
+    "Indian/Maldives",
+    "Indian/Mauritius",
+    "Indian/Mayotte",
+    "Indian/Reunion",
+    "Iran",
+    "Israel",
+    "Jamaica",
+    "Japan",
+    "Kwajalein",
+    "Libya",
+    "Mexico/BajaNorte",
+    "Mexico/BajaSur",
+    "Mexico/General",
+    "Navajo",
+    "Pacific/Apia",
+    "Pacific/Auckland",
+    "Pacific/Bougainville",
+    "Pacific/Chatham",
+    "Pacific/Chuuk",
+    "Pacific/Easter",
+    "Pacific/Efate",
+    "Pacific/Enderbury",
+    "Pacific/Fakaofo",
+    "Pacific/Fiji",
+    "Pacific/Funafuti",
+    "Pacific/Galapagos",
+    "Pacific/Gambier",
+    "Pacific/Guadalcanal",
+    "Pacific/Guam",
+    "Pacific/Honolulu",
+    "Pacific/Johnston",
+    "Pacific/Kanton",
+    "Pacific/Kiritimati",
+    "Pacific/Kosrae",
+    "Pacific/Kwajalein",
+    "Pacific/Majuro",
+    "Pacific/Marquesas",
+    "Pacific/Midway",
+    "Pacific/Nauru",
+    "Pacific/Niue",
+    "Pacific/Norfolk",
+    "Pacific/Noumea",
+    "Pacific/Pago_Pago",
+    "Pacific/Palau",
+    "Pacific/Pitcairn",
+    "Pacific/Pohnpei",
+    "Pacific/Ponape",
+    "Pacific/Port_Moresby",
+    "Pacific/Rarotonga",
+    "Pacific/Saipan",
+    "Pacific/Samoa",
+    "Pacific/Tahiti",
+    "Pacific/Tarawa",
+    "Pacific/Tongatapu",
+    "Pacific/Truk",
+    "Pacific/Wake",
+    "Pacific/Wallis",
+    "Pacific/Yap",
+    "Poland",
+    "Portugal",
+    "Singapore",
+    "Turkey",
+    "US/Alaska",
+    "US/Aleutian",
+    "US/Arizona",
+    "US/Central",
+    "US/East-Indiana",
+    "US/Eastern",
+    "US/Hawaii",
+    "US/Indiana-Starke",
+    "US/Michigan",
+    "US/Mountain",
+    "US/Pacific",
+    "US/Samoa",
 ];
 
-const arrDays = [
-    'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'
-];
-const arrMongths = [
-    'jan.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juill.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'
-];
-var arrTimezones = [];
+/**
+ * Initializer triggered when the page is loaded
+ */
 document.addEventListener('readystatechange', e => {
     if (e.target.readyState === "complete") {
-        let dtCurr = new Date();
-        dtCurr.setMinutes(dtCurr.getMinutes() + (new Date().getTimezoneOffset() * -1));
-        const strCurr = dtCurr.toISOString();
+        // Purge inputs' cache
+        let strCurr = moment().format();
+        strCurr = strCurr.substr(0, strCurr.lastIndexOf('+'));
         document.getElementById('input-date').value = strCurr.substr(0, strCurr.lastIndexOf(':'));
         document.getElementById('input-minute').value = '';
         document.getElementById('input-hour').value = '';
@@ -71,153 +582,143 @@ document.addEventListener('readystatechange', e => {
         document.getElementById('input-month').value = '';
         document.getElementById('input-year').value = '';
         document.getElementById('input-timezone-s').value = '';
-        document.getElementById('input-timezone-s').placeholder = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('input-timezone-s').placeholder = moment.tz.guess();
         document.getElementById('input-timezone-e').value = '';
-        document.getElementById('input-timezone-e').placeholder = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('input-timezone-e').placeholder = moment.tz.guess();
+        document.getElementById('input-shift-s').value = '+0';
+        document.getElementById('input-shift-e').value = '+0';
 
-        for (let i = 0; i < arrTimezones_raw.length; ++i) {
-            const name = Object.keys(arrTimezones_raw[i])[0];
-            const time = Object.values(arrTimezones_raw[i])[0];
-        
-            for (let i = -7; i < 0; ++i) {
-                const nameMinus = name.replace('#', i.toString());
-                const timeMinus = time + (i * 60);
-                var obj = {};
-                obj[nameMinus] = timeMinus;
-                arrTimezones.push(obj);
-            }
-            
-            const nameClean = name.replace('# ', '');
-            var obj = {};
-            obj[nameClean] = time;
-            arrTimezones.push(obj);
-        
-            for (let i = 1; i < 8; ++i) {
-                const namePlus = name.replace('#', '+' + i.toString());
-                const timePlus = time + (i * 60);
-                var obj = {};
-                obj[namePlus] = timePlus;
-                arrTimezones.push(obj);
-            }
-        }
-
+        // Populate available select inputs
         let strTimezones = '';
         arrTimezones.forEach((e) => {
-            strTimezones += `<option>${Object.keys(e)[0]}</option>`;
+            strTimezones += `<option>${e}</option>`;
         });
         document.querySelectorAll('.list-timezone').forEach((e) => {
             e.innerHTML = strTimezones;
         });
 
+        // Trigger date processing when inputs changes
         document.querySelectorAll('input').forEach((e) => {
             e.addEventListener('change', () => {
                 process();
             });
-            if (e.id !== 'input-timezone-s'
-            && e.id !== 'input-timezone-e')
-                e.addEventListener('input', () => {
-                    process();
-                });
         });
-
-        process(true);
+        document.querySelectorAll('select').forEach((e) => {
+            e.addEventListener('change', () => {
+                process();
+            });
+        });
     }
 }, false);
 
-function process(_startup = false) {
-    let tzFndBeg = false,
-        tzFndEnd = false,
-        tzValBeg = undefined,
-        tzValEnd = undefined;
+/**
+ * alias() is a function which retrieve a momentJs timezone from its alias
+ * @param {string} _strAlias 
+ * @returns 
+ */
+function alias(_strAlias) {
+    const arrAlias = [
+        ['BST', 'GB'],
+        ['ET', 'US/Eastern'],
+        ['PT', 'Canada/Pacific'],
+    ];
 
-    if (!_startup) {
-        for (let i = 0; i < arrTimezones.length; ++i) {
-            const tzSelBeg = document.getElementById('input-timezone-s').value;
-            const tzSelEnd = document.getElementById('input-timezone-e').value;
-            const tzSelected = Object.keys(arrTimezones[i])[0];
-
-            if (tzFndBeg === false
-                && tzSelBeg === tzSelected) {
-                tzFndBeg = true;
-                tzValBeg = Object.values(arrTimezones[i])[0];
-            }
-
-            if (tzFndEnd === false
-                && tzSelEnd === tzSelected) {
-                tzFndEnd = true;
-                tzValEnd = Object.values(arrTimezones[i])[0];
-            }
-        }
+    for (let i = 0; i < arrAlias.length; ++i) {
+        if (_strAlias === arrAlias[i][0])
+            return arrAlias[i][1];
     }
 
-    const bNan = isNaN(document.getElementById('input-minute').value || 0) || isNaN(document.getElementById('input-hour').value || 0) || isNaN(document.getElementById('input-day').value || 0)
-        || isNaN(document.getElementById('input-week').value || 0) || isNaN(document.getElementById('input-month').value || 0) || isNaN(document.getElementById('input-year').value || 0);
+    return _strAlias;
+}
+
+/**
+ * process() is a function which convert a date from a timezone to another one,
+ * apply timezone offsets,
+ * and add or substract minutes, hours, days, months and years to it.
+ * @returns null
+ */
+function process() {
+    // 
+    const locale = moment.locale(navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language);
+    moment.locale(locale);
+
+    // Store start and end timezones
+    let tzS = document.getElementById('input-timezone-s').value || moment.tz.guess();
+    let tzE = document.getElementById('input-timezone-e').value || moment.tz.guess();
+
+    // Translate potential alias to timezone name
+    tzS = alias(tzS);
+    tzE = alias(tzE);
+
+    // Check if the timezone exists in momentJs lib
+    if (!moment.tz.names().includes(tzS)) {
+        createToast("&#9888; Erreur", `Fuseau horaire de départ "${tzS}" invalide.`);
+        return;
+    }
+    if (!moment.tz.names().includes(tzE)) {
+        createToast("&#9888; Erreur", `Fuseau horaire d'arrivée "${tzE}" invalide.`);
+        return;
+    }
+
+    // Convert input start timezone to momentJs zone
+    let tpDateS = moment.tz(document.getElementById('input-date').value, tzS);
+    // Add zone offset to start timezone
+    tpDateS.add(parseInt(document.getElementById('input-shift-s').value), 'hours');
+
+    // Convert end start timezone to momentJs zone
+    let tpDateE = moment.tz(tpDateS, tzE);
+    // Add zone offset to end timezone
+    tpDateE.add(parseInt(document.getElementById('input-shift-e').value), 'hours');
     
-    if (document.getElementById('input-timezone-s').value.length > 0
-    && !tzFndBeg) {
-        document.getElementById('res-1').innerHTML = 'beg';
-        document.getElementById('res-2').innerHTML = `<div class="anim">Fuseau horaire de départ invalide.</div>`;
-    }
-    else if (document.getElementById('input-timezone-e').value.length > 0
-        && !tzFndEnd) {
-        document.getElementById('res-1').innerHTML = 'end';
-        document.getElementById('res-2').innerHTML = `<div class="anim">Fuseau horaire d'arrivée invalide.</div>`;
-    }
-    else if (bNan) {
-        if (isNaN(document.getElementById('input-minute').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les minutes renseignées ne sont pas un nombre.</div>`;
-        else if (isNaN(document.getElementById('input-hour').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les heures renseignées ne sont pas un nombre.</div>`;        
-        else if (isNaN(document.getElementById('input-day').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les jours renseignés ne sont pas un nombre.</div>`;
-        else if (isNaN(document.getElementById('input-week').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les semaines renseignées ne sont pas un nombre.</div>`;
-        else if (isNaN(document.getElementById('input-month').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les mois renseignés ne sont pas un nombre.</div>`;
-        else if (isNaN(document.getElementById('input-year').value || 0))
-            document.getElementById('res-2').innerHTML = `<div class="anim">Les années renseignées ne sont pas un nombre.</div>`;
+    // Calculate how many minutes the user wants to add to the date
+    const userOffset =
+        (parseInt(document.getElementById('input-minute').value || 0)         ) +
+        (parseInt(document.getElementById('input-hour').value   || 0) * 60    ) +
+        (parseInt(document.getElementById('input-day').value    || 0) * 1440  ) +
+        (parseInt(document.getElementById('input-week').value   || 0) * 10080 ) +
+        (parseInt(document.getElementById('input-month').value  || 0) * 43800 ) +
+        (parseInt(document.getElementById('input-year').value   || 0) * 525600)
+    ;
+    
+    // Add user offset to the date
+    tpDateE.add(userOffset, 'minutes');
 
-        document.getElementById('res-1').innerHTML = '';
-    }
-    else {
-        const lang = Intl.DateTimeFormat().resolvedOptions().locale || navigator.language || navigator.userLanguage;
-        const tzOffset = new Date().getTimezoneOffset() * -1;
-        const timezoneStart = tzValBeg ?? tzOffset;
-        const timezoneEnd = tzValEnd ?? tzOffset;
-        let dateProc = new Date(document.getElementById('input-date').value);
+    // Populate results div with formated locale
+    const fragDiv1 = `<div class="anim">${tpDateE.format('LLLL')}</div>`;
+    if (fragDiv1 !== document.getElementById('res-1').innerHTML)
+        document.getElementById('res-1').innerHTML = fragDiv1;
+    const fragDiv2 = `<div class="anim">${tpDateE.format('L LT')}</div>`;
+    if (fragDiv2 !== document.getElementById('res-2').innerHTML)
+        document.getElementById('res-2').innerHTML = fragDiv2;
+}
 
-        const userOffset =
-            (parseInt(document.getElementById('input-minute').value || 0)         ) +
-            (parseInt(document.getElementById('input-hour').value   || 0) * 60    ) +
-            (parseInt(document.getElementById('input-day').value    || 0) * 1440  ) +
-            (parseInt(document.getElementById('input-week').value   || 0) * 10080 ) +
-            (parseInt(document.getElementById('input-month').value  || 0) * 43800 ) +
-            (parseInt(document.getElementById('input-year').value   || 0) * 525600)
-        ;
-        
-        dateProc = dateProc.setMinutes(dateProc.getMinutes() + tzOffset + (timezoneEnd - timezoneStart) + userOffset);
+/**
+ * Create a toast notification
+ * @param {string} _strTitle 
+ * @param {string} _strDesc 
+ */
+var iToastID = 0;
+function createToast(_strTitle, _strDesc) {
+    const toastContainer =
+    `<div class="p-2 z-index-3">
+        <div id="toast${iToastID}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">${_strTitle}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            ${_strDesc}
+            </div>
+        </div>
+    </div>`;
 
-        dateProc = new Date(dateProc);
+    const strToastId = `toast${iToastID}`;
+    document.getElementById('toasts-list').insertAdjacentHTML('afterbegin', toastContainer);
+    test = document.getElementById(strToastId);
+    const toast = bootstrap.Toast.getOrCreateInstance(test);
+    toast.show();
 
-        const strLine1 = `<div class="anim">${
-            arrDays[dateProc.getUTCDay()] + ' ' +
-            dateProc.getUTCDate().toString().padStart(2, '0') + ' ' +
-            arrMongths[dateProc.getUTCMonth()] + ' ' +
-            dateProc.getUTCFullYear().toString() + ' à ' +
-            dateProc.getUTCHours().toString().padStart(2, '0') + 'h' +
-            dateProc.getUTCMinutes().toString().padStart(2, '0')
-        
-        }</div>`;
-        if (document.getElementById('res-1').innerHTML !== strLine1) {
-            document.getElementById('res-1').innerHTML = strLine1;
-            document.getElementById('res-2').innerHTML =
-            `<div class="anim">${
-                dateProc.getUTCDate().toString().padStart(2, '0') + '/' +
-                (dateProc.getUTCMonth() + 1).toString().padStart(2, '0') + '/' +
-                dateProc.getUTCFullYear().toString() + ' ' +
-                dateProc.getUTCHours().toString().padStart(2, '0') + ':' +
-                dateProc.getUTCMinutes().toString().padStart(2, '0')
-            }</div>`
-        }
-    }
+    setTimeout(() => document.getElementById(strToastId).parentNode.remove(), 8000);
+
+    ++iToastID;
 }
