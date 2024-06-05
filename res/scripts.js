@@ -840,12 +840,12 @@ function process(_bUpdUrl = true) {
     moment.locale(locale);
 
     // Store start and end timezones
-    let tzS = document.getElementById('input-timezone-s').value || moment.tz.guess();
-    let tzE = document.getElementById('input-timezone-e').value || moment.tz.guess();
+    const tzSOrigin = document.getElementById('input-timezone-s').value || moment.tz.guess();
+    const tzEOrigin = document.getElementById('input-timezone-e').value || moment.tz.guess();
 
     // Translate potential alias to timezone name
-    tzS = alias(tzS);
-    tzE = alias(tzE);
+    const tzS = alias(tzSOrigin);
+    const tzE = alias(tzEOrigin);
 
     // Check if the timezone exists in momentJs lib
     if (!moment.tz.names().includes(tzS)) {
@@ -887,7 +887,11 @@ function process(_bUpdUrl = true) {
     const fragDiv2 = `<div class="anim">${tpDateE.format('L LT')}</div>`;
     if (fragDiv2 !== document.getElementById('res-2').innerHTML)
         document.getElementById('res-2').innerHTML = fragDiv2;
-	
+
+    // Update the title page
+    const strTitle = `Dates \u00B7 ${tzSOrigin} \u25B8 ${tzEOrigin}`;
+    document.title = strTitle;
+
 	// Update current URL
     if (_bUpdUrl) {
         let datUrl = {
@@ -905,8 +909,6 @@ function process(_bUpdUrl = true) {
         };
         const datArr = JSON.stringify(datUrl);
         const datStr = LZUTF8.compress(datArr, { outputEncoding:"Base64" });
-        const strTitle = `Dates - ${tzS} to ${tzE}`;
-        document.title = strTitle;
         window.history.pushState(strTitle, strTitle, `?dat=${datStr}`);
     }
 }
