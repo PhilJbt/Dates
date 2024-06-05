@@ -2,32 +2,113 @@
  * arrTimezones stores all available timezones for the user,
  * including some alias not included in momentJs
  */
+
 const arrTimezones = [
-    "BST",
-    "CET",
-    "CST6CDT",
-    "EET",
-    "EST",
-    "EST5EDT",
-    "ET",
-    "GMT",
-    "HST",
-    "MET",
-    "MST",
-    "MST7MDT",
-    "NZ",
-    "NZ-CHAT",
-    "PRC",
-    "PST8PDT",
-    "PT",
-    "ROC",
-    "ROK",
-    "UCT",
-    "UTC",
-    "Universal",
-    "W-SU",
-    "WET",
-    "Zulu",
+	"ABST",
+	"ACST",
+	"AEST",
+	"AFT",
+	"AK",
+	"AMT",
+	"ARBST",
+	"ARST",
+	"ART",
+	"AST",
+	"AWST",
+	"AZOST",
+	"AZT",
+	"BST", // GB alias
+	"BTT",
+	"CAST",
+	"CAUST",
+	"CBST",
+	"CCST",
+	"CDT", // CST6CDT alias
+	"CEST",
+	"CET",
+	"CST", // CST6CDT alias
+	"CT", // CST6CDT alias
+	"CVT",
+	"EAST",
+	"EAT",
+	"ECT",
+	"EDT", // EST5EDT alias
+	"EEST",
+	"EET",
+	"EGST",
+	"ESAST",
+	"EST",
+	"ET", // US/Eastern alias
+	"FJT",
+	"GET",
+	"GMT",
+	"GNST",
+	"GST",
+	"GTBST",
+	"HAST",
+	"HST",
+	"IRKT",
+	"IRST",
+	"ISST",
+	"IST",
+	"JST",
+	"KRAT",
+	"KST",
+	"MDT", // MST7MDT alias
+	"MEST",
+	"MET",
+	"MOST",
+	"MSK",
+	"MST",
+	"MSTM",
+	"MT",
+	"MUT",
+	"MVST",
+	"MYST",
+	"NCAST",
+	"NMST",
+	"NPT",
+	"NST",
+	"NZ",
+	"NZ-CHAT",
+	"NZST",
+	"PDT", // PST8PDT alias
+	"PETT",
+	"PHOT",
+	"PKT",
+	"PRC",
+	"PRST",
+	"PSAST",
+	"PST", // PST8PDT alias
+	"PT", // Canada/Pacific alias
+	"ROC",
+	"ROK",
+	"SAEST",
+	"SAPST",
+	"SAST",
+	"SAWST",
+	"SBT",
+	"SLT",
+	"SMST",
+	"SNST",
+	"SST",
+	"TAST",
+	"THA",
+	"TIST",
+	"TST",
+	"UCT",
+	"Universal",
+	"UST",
+	"UTC",
+	"VLAT",
+	"VST",
+	"W-SU",
+	"WAST",
+	"WET",
+	"WPST",
+	"YAKT",
+	"YEKT",
+	"Zulu",
     "Africa/Abidjan",
     "Africa/Accra",
     "Africa/Addis_Ababa",
@@ -608,8 +689,40 @@ document.addEventListener('readystatechange', e => {
                 process();
             });
         });
+
+        // Retrieve inputs states from current Url
+        parseUrl();
     }
 }, false);
+
+/**
+ * Parse current url to populate users inputs
+ */
+function parseUrl() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const urlDat = urlParams.get('dat');
+    
+    if (urlDat !== null) {
+        const strDat = LZUTF8.decompress(urlDat, { inputEncoding: "Base64", outputEncoding: "String" });
+        console.log(strDat);
+        const arrDat = JSON.parse(strDat);
+        
+        document.getElementById('input-date').value = arrDat.time;
+        document.getElementById('input-timezone-s').value = arrDat.tz_s;
+        document.getElementById('input-shift-s').value = arrDat.sh_s;
+        document.getElementById('input-minute').value = arrDat.mn_e;
+        document.getElementById('input-hour').value = arrDat.hr_e;
+        document.getElementById('input-day').value = arrDat.dy_e;
+        document.getElementById('input-week').value = arrDat.wk_e;
+        document.getElementById('input-month').value = arrDat.mh_e;
+        document.getElementById('input-year').value = arrDat.yr_e;
+        document.getElementById('input-timezone-e').value = arrDat.tz_e;
+        document.getElementById('input-shift-e').value = arrDat.sh_e;
+
+        process(false);
+    }
+}
 
 /**
  * alias() is a function which retrieve a momentJs timezone from its alias
@@ -621,6 +734,89 @@ function alias(_strAlias) {
         ['BST', 'GB'],
         ['ET', 'US/Eastern'],
         ['PT', 'Canada/Pacific'],
+        ['CT', 'CST6CDT'],
+        ['CDT', 'CST6CDT'],
+        ['EDT', 'EST5EDT'],
+        ['MDT', 'MST7MDT'],
+        ['PST', 'PST8PDT'],
+        ['PDT', 'PST8PDT'],
+		['MT', 'US/Mountain'], // Also America/Denver
+		['AK', 'America/Anchorage'], // Also America/Anchorage
+		['HAST', 'Pacific/Honolulu'], // Also Pacific/Honolulu
+		['AST', 'Canada/Atlantic'], // Also America/Aruba
+		['MOST', 'Africa/Casablanca'], // Also Africa/Casablanca
+		['GST', 'Africa/Casablanca'], // Also Africa/Casablanca
+		['CET', 'Europe/Belgrade'], // Also Europe/Belgrade
+		['CEST', 'Europe/Sarajevo'], // Also Europe/Sarajevo
+		['ECT', 'Africa/Brazzaville'], // Also Africa/Douala
+		['JST', 'Europe/Athens'], // Also Europe/Bucharest
+		['GTBST', 'Europe/Athens'], // Also Europe/Bucharest
+		['MEST', 'Africa/Cairo'], // Also Africa/Cairo
+		['EGST', 'Africa/Cairo'], // Also Africa/Cairo
+		['SST', 'Africa/Cairo'], // Also Africa/Cairo
+		['SAST', 'Africa/Harare'], // Also Africa/Harare
+		['ISST', 'Asia/Jerusalem'], // Also Asia/Jerusalem
+		['EEST', 'Asia/Jerusalem'], // Also Asia/Jerusalem
+		['NMST', 'Asia/Jerusalem'], // Also Asia/Jerusalem
+		['ARST', 'Asia/Baghdad'], // Also Asia/Baghdad
+		['ABST', 'Asia/Kuwait'], // Also Asia/Kuwait
+		['MSK', 'Europe/Moscow'], // Also Europe/Moscow
+		['EAT', 'Asia/Kuwait'], // Also Asia/Kuwait
+		['IRST', 'Asia/Tehran'], // Also Asia/Tehran
+		['ARBST', 'Asia/Muscat'], // Also Asia/Muscat
+		['AZT', 'Asia/Baku'], // Also Asia/Baku
+		['MUT', 'Asia/Baku'], // Also Asia/Baku
+		['GET', 'Asia/Baku'], // Also Asia/Baku
+		['AMT', 'Asia/Baku'], // Also Asia/Baku
+		['AFT', 'Asia/Baku'], // Also Asia/Baku
+		['YEKT', 'Asia/Tashkent'], // Also Asia/Yekaterinburg
+		['PKT', 'Asia/Tashkent'], // Also Asia/Karachi
+		['WAST', 'Asia/Tashkent'], // Also Asia/Yekaterinburg
+		['IST', 'Asia/Calcutta'], // Also Asia/Calcutta
+		['SLT', 'Asia/Calcutta'], // Also Asia/Calcutta
+		['NPT', 'Asia/Katmandu'], // Also Asia/Katmandu
+		['BTT', 'Asia/Dhaka'], // Also Asia/Dhaka
+		['NCAST', 'Asia/Almaty'], // Also Asia/Dhaka
+		['MYST', 'Asia/Rangoon'], // Also Asia/Rangoon
+		['THA', 'Asia/Bangkok'], // Also Asia/Bangkok
+		['KRAT', 'Asia/Bangkok'], // Also Asia/Bangkok
+		['IRKT', 'Asia/Irkutsk'], // Also Asia/Irkutsk
+		['SNST', 'Asia/Singapore'], // Also Asia/Taipei
+		['AWST', 'Australia/Perth'], // Also Australia/Perth
+		['TIST', 'Asia/Taipei'], // Also Asia/Taipei
+		['UST', 'Asia/Taipei'], // Also Asia/Taipei
+		['TST', 'Asia/Tokyo'], // Also Asia/Tokyo
+		['KST', 'Asia/Seoul'], // Also Asia/Seoul
+		['YAKT', 'Asia/Yakutsk'], // Also Asia/Yakutsk
+		['CAUST', 'Australia/Adelaide'], // Also Australia/Adelaide
+		['ACST', 'Australia/Darwin'], // Also Australia/Darwin
+		['EAST', 'Australia/Brisbane'], // Also Australia/Brisbane
+		['AEST', 'Australia/Sydney'], // Also Australia/Sydney
+		['WPST', 'Pacific/Guam'], // Also Pacific/Guam
+		['TAST', 'Australia/Hobart'], // Also Australia/Hobart
+		['VLAT', 'Asia/Vladivostok'], // Also Asia/Vladivostok
+		['SBT', 'Pacific/Guadalcanal'], // Also Pacific/Guadalcanal
+		['NZST', 'Pacific/Auckland'], // Also Pacific/Auckland
+		['FJT', 'Pacific/Fiji'], // Also Pacific/Fiji
+		['PETT', 'Asia/Kamchatka'], // Also Etc/GMT+12
+		['PHOT', 'Pacific/Tongatapu'], // Also Pacific/Tongatapu
+		['AZOST', 'Atlantic/Azores'], // Also Atlantic/Azores
+		['CVT', 'Atlantic/Cape Verde'], // Also Atlantic/Cape Verde
+		['ESAST', 'America/Sao_Paulo'], // Also America/Sao_Paulo
+		['ART', 'America/Buenos_Aires'], // Also America/Buenos Aires
+		['GNST', 'America/Godthab'], // Also America/Godthab
+		['MVST', 'America/Godthab'], // Also America/Montevideo
+		['NST', 'Canada/Newfoundland'], // Also Canada/Newfoundland
+		['PRST', 'Canada/Atlantic'], // Also America/Aruba
+		['CBST', 'Canada/Atlantic'], // Also America/Aruba
+		['SAWST', 'America/Santiago'], // Also America/Santiago
+		['PSAST', 'America/Santiago'], // Also America/Santiago
+		['VST', 'America/Caracas'], // Also America/Caracas
+		['SAPST', 'America/Bogota'], // Also America/Bogota
+		['CAST', 'America/El_Salvador'], // Also America/Mexico_City
+		['CCST', 'Canada/Saskatchewan'], // Also Canada/Saskatchewan
+		['MSTM', 'America/Chihuahua'], // Also America/Mazatlan
+		['SMST', 'Pacific/Midway'], // Also Pacific/Midway
     ];
 
     for (let i = 0; i < arrAlias.length; ++i) {
@@ -635,10 +831,11 @@ function alias(_strAlias) {
  * process() is a function which convert a date from a timezone to another one,
  * apply timezone offsets,
  * and add or substract minutes, hours, days, months and years to it.
- * @returns null
+ * @param {string} _bUpdUrl Does the URL has to be updated
+ * @returns 
  */
-function process() {
-    // 
+function process(_bUpdUrl = true) {
+    // Retrieve the browser langugage
     const locale = moment.locale(navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language);
     moment.locale(locale);
 
@@ -690,6 +887,28 @@ function process() {
     const fragDiv2 = `<div class="anim">${tpDateE.format('L LT')}</div>`;
     if (fragDiv2 !== document.getElementById('res-2').innerHTML)
         document.getElementById('res-2').innerHTML = fragDiv2;
+	
+	// Update current URL
+    if (_bUpdUrl) {
+        let datUrl = {
+            time: document.getElementById('input-date').value,
+            tz_s: document.getElementById('input-timezone-s').value,
+            sh_s: document.getElementById('input-shift-s').value,
+            mn_e: document.getElementById('input-minute').value,
+            hr_e: document.getElementById('input-hour').value,
+            dy_e: document.getElementById('input-day').value,
+            wk_e: document.getElementById('input-week').value,
+            mh_e: document.getElementById('input-month').value,
+            yr_e: document.getElementById('input-year').value,
+            tz_e: document.getElementById('input-timezone-e').value,
+            sh_e: document.getElementById('input-shift-e').value,
+        };
+        const datArr = JSON.stringify(datUrl);
+        const datStr = LZUTF8.compress(datArr, { outputEncoding:"Base64" });
+        const strTitle = `Dates - ${tzS} to ${tzE}`;
+        document.title = strTitle;
+        window.history.pushState(strTitle, strTitle, `?dat=${datStr}`);
+    }
 }
 
 /**
