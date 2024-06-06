@@ -860,7 +860,7 @@ function process(_bUpdUrl = true) {
     // Convert input start timezone to momentJs zone
     let tpDateS = moment.tz(document.getElementById('input-date').value, tzS);
     // Add zone offset to start timezone
-    tpDateS.add(parseInt(document.getElementById('input-shift-s').value), 'hours');
+    tpDateS.subtract(parseInt(document.getElementById('input-shift-s').value), 'hours');
 
     // Convert end start timezone to momentJs zone
     let tpDateE = moment.tz(tpDateS, tzE);
