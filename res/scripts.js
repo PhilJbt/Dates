@@ -749,7 +749,7 @@ function alias(_strAlias) {
 		['CET', 'Europe/Belgrade'], // Also Europe/Belgrade
 		['CEST', 'Europe/Sarajevo'], // Also Europe/Sarajevo
 		['ECT', 'Africa/Brazzaville'], // Also Africa/Douala
-		['JST', 'Europe/Athens'], // Also Europe/Bucharest
+		['JST', 'Japan'],
 		['GTBST', 'Europe/Athens'], // Also Europe/Bucharest
 		['MEST', 'Africa/Cairo'], // Also Africa/Cairo
 		['EGST', 'Africa/Cairo'], // Also Africa/Cairo
